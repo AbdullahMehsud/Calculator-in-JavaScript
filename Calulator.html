@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Standard Calculator</title>
+	<style type="text/css">
+		body {  
+			background-color:tan;  
+		}  
+		.box{  
+			background-color:#3d4543;  
+			height:400px;  
+			width:260px;  
+			border-radius:10px;  
+			position:relative;  
+			top:80px;  
+			left:40%;  
+		}
+		.display{  
+			background-color:#222;  
+			width:220px;  
+			position:relative;  
+			left:15px;  
+			top:20px;  
+			height:40px;  
+		}  
+		.display input{  
+			position:relative;  
+			left:2px;  
+			top:2px;  
+			height:35px;  
+			color:black;  
+			background-color:#bccd95;  
+			font-size:23px;  
+			text-align:right;  
+		} 
+		.keys{  
+			position:relative;  
+			top:15px;  
+		}
+		.row1{
+			width: 30px;
+			border: none;
+			border-radius: 4px;
+			margin-left: 8px;
+			cursor: pointer;
+			border-top: 2px solid tran;
+			color:black;  
+			background-color:#ff4561;  
+			border-bottom:black 2px solid;
+		}
+		.button{  
+			width:40px;  
+			height:30px;  
+			border:none;  
+			border-radius:8px;  
+			margin-left:17px;  
+			cursor:pointer;  
+			border-top:2px solid transparent;  
+		}  
+		.button.white {  
+			color: black;  
+			background-color: white;  
+			border-bottom:black 2px solid;  
+			border-top:2px #6f6f6f solid;  
+		}
+		.button.blue{  
+			color:black;  
+			background-color:lightblue;  
+			border-bottom:black 2px solid;
+		}
+		.button.gray {  
+			color:white;  
+			background-color:#6f6f6f;  
+			border-bottom:black 2px solid;  
+			border-top:2px #6f6f6f solid;  
+		}
+	</style>
+</head>
+<body>
+
+	<div class="box">
+		<div class="display">
+			<input type="text" readonly size="15" id="d">
+		</div>
+
+		<div class="keys">
+			<p><input type="button" class="row1" value="MC">
+				<input type="button" class="row1" value="MR">
+				<input type="button" class="row1" value="M+">
+				<input type="button" class="row1" value="M-">
+				<input type="button" class="row1" value="MS">
+			</p>
+
+			<p><input type="button" class="button gray" value="%">
+				<input type="button" class="button gray" value="&radic;"><!-- //&radic squareRoot -->
+				<input type="button" class="button gray" value="x&#178;"><!-- //&#178 x^2 -->
+				<input type="button" class="button blue" value="1/x"></p>
+
+				<p><input type="button" class="button gray" value="CE" onclick="clearData();">
+					<input type="button" class="button gray" value="C" onclick="clearData();">
+					<input type="button" class="button gray" value="DEL" onclick="deleteLastDigit();">
+					<input type="button" class="button blue" value="&#xF7;"></p> <!-- &#xf7 / -->
+
+					<p><input type="button" class="button white" value="7" onclick="appendData(7);">
+						<input type="button" class="button white" value="8" onclick="appendData(8);">
+						<input type="button" class="button white" value="9"  onclick="appendData(9);">
+						<input type="button" class="button blue" value="X"></p>
+
+						<p><input type="button" class="button white" value="4" onclick="appendData(4);">
+							<input type="button" class="button white" value="5" onclick="appendData(5);">
+							<input type="button" class="button white" value="6" onclick="appendData(6);">
+							<input type="button" class="button blue" value="-"></p>
+
+							<p>
+								<input type="button" class="button white" value="1" onclick="appendData(1);">
+								<input type="button" class="button white" value="2" onclick="appendData(2);">
+								<input type="button" class="button white" value="3" onclick="appendData(3);">
+								<input type="button" class="button blue" value="+"></p>
+
+								<p><input type="button" class="button gray" value="&#8723;"> 
+									<!-- &#8723 + and - -->		
+									<input type="button" class="button white" value="0" onclick="appendData(0);">
+									<input type="button" class="button gray" value=".">
+									<input type="button" class="button blue" value="="></p>
+								</div>
+
+							</div>
+
+							<script>
+								function appendData(data) {
+									let oldData = document.getElementById("d").value;
+									if(!(oldData === "" && data === 0)) {
+										document.getElementById("d").value = oldData + data;
+									}
+
+								}
+
+								function clearData() {
+									document.getElementById("d").value = "";
+								}
+
+								function deleteLastDigit() {
+									let oldData = document.getElementById("d").value;
+									let length = oldData.length;
+
+									if(length > 0) {
+										let remainingData = oldData.substr(0, length - 1);
+										document.getElementById("d").value = remainingData;
+									}
+								}
+							</script>
+						</body>
+						</html>
