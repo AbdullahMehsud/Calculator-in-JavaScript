@@ -1,155 +1,289 @@
 <!DOCTYPE html>
 <html>
+
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Standard Calculator</title>
 	<style type="text/css">
-		body {  
-			background-color:tan;  
-		}  
-		.box{  
-			background-color:#3d4543;  
-			height:400px;  
-			width:260px;  
-			border-radius:10px;  
-			position:relative;  
-			top:80px;  
-			left:40%;  
+		body {
+			background-color: tan;
 		}
-		.display{  
-			background-color:#222;  
-			width:220px;  
-			position:relative;  
-			left:15px;  
-			top:20px;  
-			height:40px;  
-		}  
-		.display input{  
-			position:relative;  
-			left:2px;  
-			top:2px;  
-			height:35px;  
-			color:black;  
-			background-color:#bccd95;  
-			font-size:23px;  
-			text-align:right;  
-		} 
-		.keys{  
-			position:relative;  
-			top:15px;  
+
+		.box {
+			background-color: #3d4543;
+			height: 400px;
+			width: 260px;
+			border-radius: 10px;
+			position: relative;
+			top: 80px;
+			left: 40%;
 		}
-		.row1{
+
+		.display {
+			background-color: #222;
+			width: 220px;
+			position: relative;
+			left: 15px;
+			top: 20px;
+			height: 40px;
+		}
+
+		.display input {
+			position: relative;
+			left: 2px;
+			top: 2px;
+			height: 35px;
+			color: black;
+			background-color: #bccd95;
+			font-size: 23px;
+			text-align: right;
+		}
+
+		.keys {
+			position: relative;
+			top: 15px;
+		}
+
+		.row1 {
 			width: 30px;
 			border: none;
 			border-radius: 4px;
 			margin-left: 8px;
 			cursor: pointer;
 			border-top: 2px solid tran;
-			color:black;  
-			background-color:#ff4561;  
-			border-bottom:black 2px solid;
+			color: black;
+			background-color: #ff4561;
+			border-bottom: black 2px solid;
 		}
-		.button{  
-			width:40px;  
-			height:30px;  
-			border:none;  
-			border-radius:8px;  
-			margin-left:17px;  
-			cursor:pointer;  
-			border-top:2px solid transparent;  
-		}  
-		.button.white {  
-			color: black;  
-			background-color: white;  
-			border-bottom:black 2px solid;  
-			border-top:2px #6f6f6f solid;  
+
+		.button {
+			width: 40px;
+			height: 30px;
+			border: none;
+			border-radius: 8px;
+			margin-left: 17px;
+			cursor: pointer;
+			border-top: 2px solid transparent;
 		}
-		.button.blue{  
-			color:black;  
-			background-color:lightblue;  
-			border-bottom:black 2px solid;
+
+		.button.white {
+			color: black;
+			background-color: white;
+			border-bottom: black 2px solid;
+			border-top: 2px #6f6f6f solid;
 		}
-		.button.gray {  
-			color:white;  
-			background-color:#6f6f6f;  
-			border-bottom:black 2px solid;  
-			border-top:2px #6f6f6f solid;  
+
+		.button.blue {
+			color: black;
+			background-color: lightblue;
+			border-bottom: black 2px solid;
+		}
+
+		.button.gray {
+			color: white;
+			background-color: #6f6f6f;
+			border-bottom: black 2px solid;
+			border-top: 2px #6f6f6f solid;
 		}
 	</style>
 </head>
-<body>
 
+<body>
 	<div class="box">
 		<div class="display">
 			<input type="text" readonly size="15" id="d">
 		</div>
 
 		<div class="keys">
-			<p><input type="button" class="row1" value="MC">
-				<input type="button" class="row1" value="MR">
-				<input type="button" class="row1" value="M+">
-				<input type="button" class="row1" value="M-">
-				<input type="button" class="row1" value="MS">
+			<p><input type="button" class="row1" value="MC" onclick="memorySaveAddSubtract(4);">
+				<input type="button" class="row1" value="MR" onclick="memorySaveAddSubtract(5);">
+				<input type="button" class="row1" value="M+" onclick="memorySaveAddSubtract(2);">
+				<input type="button" class="row1" value="M-" onclick="memorySaveAddSubtract(3);">
+				<input type="button" class="row1" value="MS" onclick="memorySaveAddSubtract(1);">
 			</p>
 
-			<p><input type="button" class="button gray" value="%">
-				<input type="button" class="button gray" value="&radic;"><!-- //&radic squareRoot -->
-				<input type="button" class="button gray" value="x&#178;"><!-- //&#178 x^2 -->
-				<input type="button" class="button blue" value="1/x"></p>
+			<p><input type="button" class="button gray" value="%" onclick='storeOperation("%");''>
+				<input type="button" class="button gray" value="&radic;" onclick="sqRootSquareReciprocal(1);">
+				<!-- //&radic squareRoot -->
+				<input type="button" class="button gray" value="x&#178;" onclick="sqRootSquareReciprocal(2);">
+				<!-- //&#178 x^2 -->
+				<input type="button" class="button blue" value="1/x" onclick="sqRootSquareReciprocal(3);">
+			</p>
 
-				<p><input type="button" class="button gray" value="CE" onclick="clearData();">
-					<input type="button" class="button gray" value="C" onclick="clearData();">
-					<input type="button" class="button gray" value="DEL" onclick="deleteLastDigit();">
-					<input type="button" class="button blue" value="&#xF7;"></p> <!-- &#xf7 / -->
+			<p><input type="button" class="button gray" value="CE" onclick="clearData();">
+				<input type="button" class="button gray" value="C" onclick="clearData();">
+				<input type="button" class="button gray" value="DEL" onclick="deleteLast();">
+				<input type="button" class="button blue" value="&#xF7;" onclick='storeOperation("/")'>
+			</p> <!-- &#xf7 / -->
 
-					<p><input type="button" class="button white" value="7" onclick="appendData(7);">
-						<input type="button" class="button white" value="8" onclick="appendData(8);">
-						<input type="button" class="button white" value="9"  onclick="appendData(9);">
-						<input type="button" class="button blue" value="X"></p>
+			<p><input type="button" class="button white" value="7" onclick='num("7")'>
+				<input type="button" class="button white" value="8" onclick='num("8")'>
+				<input type="button" class="button white" value="9" onclick='num("9")'>
+				<input type="button" class="button blue" value="X" onclick='storeOperation("*");'>
+			</p>
 
-						<p><input type="button" class="button white" value="4" onclick="appendData(4);">
-							<input type="button" class="button white" value="5" onclick="appendData(5);">
-							<input type="button" class="button white" value="6" onclick="appendData(6);">
-							<input type="button" class="button blue" value="-"></p>
+			<p><input type="button" class="button white" value="4" onclick='num("4")'>
+				<input type="button" class="button white" value="5" onclick='num("5")'>
+				<input type="button" class="button white" value="6" onclick='num("6")'>
+				<input type="button" class="button blue" value="-" onclick='storeOperation("-")'>
+			</p>
 
-							<p>
-								<input type="button" class="button white" value="1" onclick="appendData(1);">
-								<input type="button" class="button white" value="2" onclick="appendData(2);">
-								<input type="button" class="button white" value="3" onclick="appendData(3);">
-								<input type="button" class="button blue" value="+"></p>
+			<p><input type="button" class="button white" value="1" onclick='num("1")'>
+				<input type="button" class="button white" value="2" onclick='num("2")'>
+				<input type="button" class="button white" value="3" onclick='num("3")'>
+				<input type="button" class="button blue" value="+" onclick='storeOperation("+");'>
+			</p>
 
-								<p><input type="button" class="button gray" value="&#8723;"> 
-									<!-- &#8723 + and - -->		
-									<input type="button" class="button white" value="0" onclick="appendData(0);">
-									<input type="button" class="button gray" value=".">
-									<input type="button" class="button blue" value="="></p>
-								</div>
+			<p><input type="button" class="button gray" value="&#8723;" onclick="takePlusMinus();">
+				<!-- &#8723 + and - -->
+				<input type="button" class="button white" value="0" onclick='num("0")'>
+				<input type="button" class="button gray" value="." onclick='num(".")'>
+				<input type="button" class="button blue" value="=" onclick="calculate('=')">
+			</p>
+		</div>
 
-							</div>
+	</div>
 
-							<script>
-								function appendData(data) {
-									let oldData = document.getElementById("d").value;
-									if(!(oldData === "" && data === 0)) {
-										document.getElementById("d").value = oldData + data;
-									}
+	<script>
+		let rememberData = 0;
+		let firstValue = 0;
+		let secondValue = 0;
+		let result = 0;
+		let operation = "";
 
-								}
+		function num(val) {
+			let oldValue = document.getElementById("d").value;
+			let newValue = '';
 
-								function clearData() {
-									document.getElementById("d").value = "";
-								}
+			if (oldValue !== '') {
+				newValue = oldValue + val;
+			} else {
+				if (val > 0) {
+					newValue = oldValue + val;
+				}
+			}
 
-								function deleteLastDigit() {
-									let oldData = document.getElementById("d").value;
-									let length = oldData.length;
+			document.getElementById("d").value = newValue;
+		}
 
-									if(length > 0) {
-										let remainingData = oldData.substr(0, length - 1);
-										document.getElementById("d").value = remainingData;
-									}
-								}
-							</script>
-						</body>
-						</html>
+		function clearData() {
+
+			document.getElementById("d").value = "";
+		}
+
+		function deleteLast() {
+			let oldValue = document.getElementById("d").value;
+			if (oldValue !== '') {
+				let length = oldValue.length;
+				let newValue = oldValue.substr(0, length - 1);
+				//alert(newValue);
+				document.getElementById("d").value = newValue;
+			}
+		}
+
+		function takePlusMinus() {
+			let x = 0;
+			let oldValue = document.getElementById("d").value;
+
+			let newValue = -1 * oldValue;
+
+			document.getElementById("d").value = newValue;
+
+		}
+
+		function sqRootSquareReciprocal(choice) {
+			//1.......square root
+			//2.......square
+			//3.......reciprocal 
+			//alert(choice);
+			let oldValue = document.getElementById("d").value;
+			let newValue = '';
+
+			if (choice === 1) {
+				newValue = Math.sqrt(oldValue);
+			} else if (choice === 2) {
+				newValue = Math.pow(oldValue, 2);
+			} else if (choice === 3) {
+				newValue = 1 / oldValue;
+				newValue.toFixed(2);
+			}
+
+			document.getElementById("d").value = newValue;
+		}
+
+		function calculate(choice) {
+			 secondValue = document.getElementById("d").value;
+			console.log("second value,", secondValue);
+
+			if (!(isNaN(firstValue) || isNaN(secondValue))) {
+				let firstNumber = parseFloat(firstValue);
+				let secondNumber = parseFloat(secondValue);
+				//console.log(firstNumber, secondNumber);
+				switch (operation) {
+					case '+':
+						result = firstNumber + secondNumber;
+						console.log(result);
+						break;
+					case '-':
+						result = firstNumber - secondNumber;
+						break;
+					case '*':
+						result = firstNumber * secondNumber;
+						break;
+					case '/':
+						result = firstNumber / secondNumber;
+						break;
+					case '%':
+						result = firstNumber % secondNumber;
+						break;
+				}
+				document.getElementById("d").value = result;
+			}
+		}
+
+		//local variable
+		//global variable
+
+		/**
+		 * 1 for save in memory
+		 * 2 for add to the old value in memory
+		 * 3 to subtract the current value from already stored value and 
+		 * then restore in memory
+		 * 4 to clear memory
+		 * 5 to memory recall
+		 */
+
+		function memorySaveAddSubtract(choice) {
+			let currentValue = document.getElementById("d").value;
+			if (currentValue === '') {
+				currentValue = 0;
+			} else {
+				currentValue = parseFloat(currentValue);
+			}
+
+			if (choice === 4) {
+				rememberData = 0;
+			} else if (choice === 1) {
+				rememberData = currentValue;
+			} else if (choice === 2) {
+				rememberData = rememberData + currentValue;
+			} else if (choice === 3) {
+				rememberData = rememberData - currentValue;
+			} else if (choice === 5) {
+				document.getElementById("d").value = rememberData;
+			}
+
+			console.log(rememberData);
+		}
+
+		function storeOperation(oper) {
+			console.log(oper);
+			operation = oper;
+			firstValue = document.getElementById("d").value * 1;
+			document.getElementById("d").value = '';
+		}
+	</script>
+</body>
+
+</html>
